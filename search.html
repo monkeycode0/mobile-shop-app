@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分类搜索</title>
+    <style id="theme-vars">
+:root {
+  /* ── Brand Colors ── */
+  --color-primary: #FF6B00;
+  --color-primary-light: #FF8C33;
+  --color-primary-dark: #E05E00;
+  --color-primary-50: #FFF5EC;
+  --color-primary-100: #FFE8D5;
+  --color-primary-200: #FFD0AB;
+  --color-primary-300: #FFB57E;
+  --color-primary-400: #FF8C33;
+  --color-primary-500: #FF6B00;
+  --color-primary-600: #E05E00;
+  --color-primary-700: #B84D00;
+  --color-primary-800: #903D00;
+  --color-primary-900: #6B2E00;
+
+  /* ── Neutral Colors ── */
+  --color-neutral-50: #FAFAFA;
+  --color-neutral-100: #F5F5F5;
+  --color-neutral-200: #E5E5E5;
+  --color-neutral-300: #D4D4D4;
+  --color-neutral-400: #A3A3A3;
+  --color-neutral-500: #737373;
+  --color-neutral-600: #525252;
+  --color-neutral-700: #404040;
+  --color-neutral-800: #262626;
+  --color-neutral-900: #171717;
+
+  /* ── State Colors ── */
+  --state-success: #22C55E;
+  --state-warning: #F59E0B;
+  --state-error: #EF4444;
+  --state-info: #3B82F6;
+
+  /* ── Surface & Background ── */
+  --surface-primary: #FFFFFF;
+  --surface-secondary: #F8F8F8;
+  --surface-tertiary: #F0F0F0;
+  --surface-inverted: #171717;
+
+  /* ── Text Colors ── */
+  --text-primary: #171717;
+  --text-secondary: #525252;
+  --text-tertiary: #A3A3A3;
+  --text-inverse: #FFFFFF;
+  --text-link: #FF6B00;
+
+  /* ── Border Colors ── */
+  --border-default: #E5E5E5;
+  --border-light: #F0F0F0;
+  --border-dark: #D4D4D4;
+
+  /* ── Typography ── */
+  --font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --font-family-display: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  --font-size-xs: 0.625rem;    /* 10px */
+  --font-size-sm: 0.75rem;     /* 12px */
+  --font-size-base: 0.875rem;  /* 14px */
+  --font-size-md: 1rem;        /* 16px */
+  --font-size-lg: 1.125rem;    /* 18px */
+  --font-size-xl: 1.25rem;     /* 20px */
+  --font-size-2xl: 1.5rem;     /* 24px */
+  --font-size-3xl: 1.875rem;   /* 30px */
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* ── Spacing ── */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-base: 16px;
+  --spacing-lg: 20px;
+  --spacing-xl: 24px;
+  --spacing-2xl: 32px;
+
+  /* ── Radius ── */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* ── Shadows ── */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* ── Typography Classes ── */
+.text-display {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+}
+
+.text-heading {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+}
+
+.text-body {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+}
+
+.text-caption {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+  color: var(--text-tertiary);
+}
+
+.text-price {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+}
+
+.text-badge {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-xs);
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-primary: var(--color-primary);
+  }
+  @layer base {
+    body { background: var(--color-background); color: var(--color-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+
+      /* ── Category Page Layout ── */
+      .category-sidebar {
+        width: 85px;
+        min-width: 85px;
+        background: var(--surface-secondary);
+        overflow-y: auto;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .category-sidebar::-webkit-scrollbar { display: none; }
+
+      .category-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 4px;
+        font-size: var(--font-size-sm);
+        color: var(--text-secondary);
+        position: relative;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        border-left: 3px solid transparent;
+      }
+      .category-item.active {
+        color: var(--color-primary);
+        background: var(--surface-primary);
+        font-weight: var(--font-weight-semibold);
+        border-left-color: var(--color-primary);
+      }
+      .category-item .cat-icon {
+        width: 22px;
+        height: 22px;
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .category-item.active .cat-icon {
+        color: var(--color-primary);
+      }
+
+      .content-area {
+        flex: 1;
+        overflow-y: auto;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .content-area::-webkit-scrollbar { display: none; }
+
+      .pill-btn {
+        display: inline-block;
+        padding: 6px 14px;
+        border-radius: var(--radius-full);
+        font-size: var(--font-size-sm);
+        color: var(--text-secondary);
+        background: var(--surface-secondary);
+        white-space: nowrap;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        border: 1px solid var(--border-light);
+      }
+      .pill-btn.active {
+        color: var(--color-primary);
+        background: var(--color-primary-50);
+        border-color: var(--color-primary-200);
+      }
+
+      .product-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 8px;
+        cursor: pointer;
+      }
+      .product-card .product-img {
+        width: 100%;
+        aspect-ratio: 1;
+        border-radius: var(--radius-md);
+        margin-bottom: 6px;
+      }
+      .product-card .product-name {
+        width: 100%;
+        font-size: var(--font-size-xs);
+        color: var(--text-primary);
+        line-height: 1.4;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 4px;
+        min-height: 28px;
+      }
+      .product-card .product-price {
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-bold);
+        color: var(--color-primary);
+        width: 100%;
+        font-family: var(--font-family-display);
+      }
+
+      .bottom-tab-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        height: 50px;
+        background: var(--surface-primary);
+        border-top: 1px solid var(--border-default);
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 375px;
+        z-index: 50;
+      }
+      @media (max-width: 375px) {
+        .bottom-tab-bar {
+          width: 100%;
+          left: 0;
+          transform: none;
+        }
+      }
+      .bottom-tab-bar .tab-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        color: var(--text-tertiary);
+        cursor: pointer;
+        padding: 4px 12px;
+        gap: 2px;
+        transition: color 0.2s ease;
+      }
+      .bottom-tab-bar .tab-item.active {
+        color: var(--color-primary);
+      }
+      .bottom-tab-bar .tab-item i,
+      .bottom-tab-bar .tab-item svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      /* ── Page wrapper for 375px mobile ── */
+      .mobile-frame {
+        width: 375px;
+        min-height: 100vh;
+        margin: 0 auto;
+        position: relative;
+        overflow: hidden;
+        background: var(--surface-primary);
+        box-shadow: 0 0 40px rgba(0,0,0,0.08);
+      }
+      @media (max-width: 375px) {
+        .mobile-frame {
+          width: 100%;
+          box-shadow: none;
+        }
+      }
+    </style>
+</head>
+<body style="background: var(--surface-secondary); margin: 0;">
+  <main>
+  <div class="mobile-frame">
+    <!-- ── Top Search Bar ── -->
+    <div style="height: 44px; background: var(--surface-primary); display: flex; align-items: center; padding: 0 12px; gap: 10px; border-bottom: 1px solid var(--border-light); flex-shrink: 0;">
+      <a data-dom-id="search-back" style="display: flex; align-items: center; cursor: pointer; color: var(--text-secondary); flex-shrink: 0;">
+        <i data-lucide="arrow-left" style="width: 20px; height: 20px;"></i>
+      </a>
+      <div style="flex: 1; height: 32px; background: var(--surface-secondary); border-radius: var(--radius-full); display: flex; align-items: center; padding: 0 12px; gap: 6px; border: 1px solid var(--border-light);">
+        <i data-lucide="search" style="width: 14px; height: 14px; color: var(--text-tertiary); flex-shrink: 0;"></i>
+        <input data-dom-id="search-input" type="text" value="耳机" placeholder="搜索商品" style="flex: 1; border: none; outline: none; background: transparent; font-size: var(--font-size-base); color: var(--text-primary); font-family: var(--font-family-base); line-height: 1;">
+      </div>
+    </div>
+
+    <!-- ── Two-panel Layout ── -->
+    <div style="display: flex; height: calc(100vh - 44px - 50px); overflow: hidden;">
+
+      <!-- Left Sidebar: Category List -->
+      <div class="category-sidebar">
+        <div class="category-item active">
+          <span class="cat-icon"><i data-lucide="sparkles" style="width: 20px; height: 20px;"></i></span>
+          <span>推荐</span>
+        </div>
+        <div class="category-item">
+          <span class="cat-icon"><i data-lucide="smartphone" style="width: 20px; height: 20px;"></i></span>
+          <span>数码</span>
+        </div>
+        <div class="category-item">
+          <span class="cat-icon"><i data-lucide="shirt" style="width: 20px; height: 20px;"></i></span>
+          <span>服饰</span>
+        </div>
+        <div class="category-item">
+          <span class="cat-icon"><i data-lucide="palette" style="width: 20px; height: 20px;"></i></span>
+          <span>美妆</span>
+        </div>
+        <div class="category-item">
+          <span class="cat-icon"><i data-lucide="cherry" style="width: 20px; height: 20px;"></i></span>
+          <span>食品</span>
+        </div>
+        <div class="category-item">
+          <span class="cat-icon"><i data-lucide="lamp" style="width: 20px; height: 20px;"></i></span>
+          <span>家居</span>
+        </div>
+        <div class="category-item">
+          <span class="cat-icon"><i data-lucide="dumbbell" style="width: 20px; height: 20px;"></i></span>
+          <span>运动</span>
+        </div>
+        <div class="category-item">
+          <span class="cat-icon"><i data-lucide="book-open" style="width: 20px; height: 20px;"></i></span>
+          <span>图书</span>
+        </div>
+        <div class="category-item">
+          <span class="cat-icon"><i data-lucide="baby" style="width: 20px; height: 20px;"></i></span>
+          <span>母婴</span>
+        </div>
+      </div>
+
+      <!-- Right Content Area -->
+      <div class="content-area" style="padding: 0;">
+
+        <!-- Sub-category Banner -->
+        <div style="padding: 14px 12px 10px; background: var(--surface-primary);">
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <span class="pill-btn">手机</span>
+            <span class="pill-btn active">耳机</span>
+            <span class="pill-btn">电脑</span>
+            <span class="pill-btn">平板</span>
+            <span class="pill-btn">相机</span>
+            <span class="pill-btn">智能穿戴</span>
+          </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div style="padding: 4px 8px 16px; background: var(--surface-primary);">
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+
+            <!-- Product 1 -->
+            <div class="product-card">
+              <div class="product-img" style="background: linear-gradient(135deg, #FFD0AB 0%, #FF8C33 100%);"></div>
+              <div class="product-name">无线蓝牙降噪耳机 头戴式高音质</div>
+              <div class="product-price">&yen;199</div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+              <div class="product-img" style="background: linear-gradient(135deg, #E0E7FF 0%, #818CF8 100%);"></div>
+              <div class="product-name">运动入耳式防水耳机</div>
+              <div class="product-price">&yen;299</div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card">
+              <div class="product-img" style="background: linear-gradient(135deg, #D1FAE5 0%, #34D399 100%);"></div>
+              <div class="product-name">真无线立体声蓝牙耳机 主动降噪</div>
+              <div class="product-price">&yen;599</div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card">
+              <div class="product-img" style="background: linear-gradient(135deg, #FCE7F3 0%, #F472B6 100%);"></div>
+              <div class="product-name">高端旗舰级 HiFi 头戴耳机</div>
+              <div class="product-price">&yen;1299</div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card">
+              <div class="product-img" style="background: linear-gradient(135deg, #FEF3C7 0%, #F59E0B 100%);"></div>
+              <div class="product-name">便携式有线耳机 高保音质</div>
+              <div class="product-price">&yen;89</div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card">
+              <div class="product-img" style="background: linear-gradient(135deg, #CFFAFE 0%, #22D3EE 100%);"></div>
+              <div class="product-name">游戏电竞降噪耳机 带麦克风</div>
+              <div class="product-price">&yen;459</div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Bottom Tab Bar ── -->
+    <div class="bottom-tab-bar">
+      <a data-dom-id="nav-home" class="tab-item">
+        <i data-lucide="home" style="width: 20px; height: 20px;"></i>
+        <span>首页</span>
+      </a>
+      <div class="tab-item active">
+        <i data-lucide="layout-grid" style="width: 20px; height: 20px;"></i>
+        <span>分类</span>
+      </div>
+      <a data-dom-id="nav-cart" class="tab-item">
+        <i data-lucide="shopping-cart" style="width: 20px; height: 20px;"></i>
+        <span>购物车</span>
+      </a>
+      <a data-dom-id="nav-profile" class="tab-item">
+        <i data-lucide="user" style="width: 20px; height: 20px;"></i>
+        <span>我的</span>
+      </a>
+    </div>
+  </div>
+
+  <script>lucide.createIcons();</script>
+  </main>
+<script>
+const ROUTES = {
+  'page-home': 'index.html',
+  'page-login': 'login.html',
+  'page-search': 'search.html',
+  'page-product': 'product.html',
+  'page-cart': 'cart.html',
+  'page-payment': 'payment.html',
+  'page-orders': 'orders.html'
+};
+const INTERACTIONS = {
+  'btn-login': 'page-home',
+  'btn-checkout': 'page-payment',
+  'btn-submit-order': 'page-orders',
+  'btn-add-cart': 'page-cart',
+  'btn-buy-now': 'page-payment',
+  'nav-home': 'page-home',
+  'nav-category': 'page-search',
+  'nav-cart': 'page-cart',
+  'nav-profile': 'page-orders',
+  'search-bar': 'page-search',
+  'search-back': 'page-home',
+  'product-back': 'page-home',
+  'product-card-1': 'page-product',
+  'product-card-2': 'page-product',
+  'payment-back': 'page-cart',
+  'orders-back': 'page-home',
+  'order-detail-1': 'page-product',
+  'cart-item-delete': null,
+  'btn-select-all': null,
+  'btn-favorite': null,
+  'link-register': 'page-home',
+  'address-edit': null,
+  'payment-method': null
+};
+document.addEventListener('click', function(e) {
+  var el = e.target.closest('[data-dom-id]');
+  if (!el) return;
+  var domId = el.getAttribute('data-dom-id');
+  var pageKey = INTERACTIONS[domId];
+  if (!pageKey) return;
+  e.preventDefault();
+  var target = ROUTES[pageKey];
+  if (target) window.location.href = target;
+});
+</script>
+</body>
+</html>

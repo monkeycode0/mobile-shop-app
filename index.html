@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商城首页</title>
+    <style id="theme-vars">
+:root {
+  /* ── Brand Colors ── */
+  --color-primary: #FF6B00;
+  --color-primary-light: #FF8C33;
+  --color-primary-dark: #E05E00;
+  --color-primary-50: #FFF5EC;
+  --color-primary-100: #FFE8D5;
+  --color-primary-200: #FFD0AB;
+  --color-primary-300: #FFB57E;
+  --color-primary-400: #FF8C33;
+  --color-primary-500: #FF6B00;
+  --color-primary-600: #E05E00;
+  --color-primary-700: #B84D00;
+  --color-primary-800: #903D00;
+  --color-primary-900: #6B2E00;
+
+  /* ── Neutral Colors ── */
+  --color-neutral-50: #FAFAFA;
+  --color-neutral-100: #F5F5F5;
+  --color-neutral-200: #E5E5E5;
+  --color-neutral-300: #D4D4D4;
+  --color-neutral-400: #A3A3A3;
+  --color-neutral-500: #737373;
+  --color-neutral-600: #525252;
+  --color-neutral-700: #404040;
+  --color-neutral-800: #262626;
+  --color-neutral-900: #171717;
+
+  /* ── State Colors ── */
+  --state-success: #22C55E;
+  --state-warning: #F59E0B;
+  --state-error: #EF4444;
+  --state-info: #3B82F6;
+
+  /* ── Surface & Background ── */
+  --surface-primary: #FFFFFF;
+  --surface-secondary: #F8F8F8;
+  --surface-tertiary: #F0F0F0;
+  --surface-inverted: #171717;
+
+  /* ── Text Colors ── */
+  --text-primary: #171717;
+  --text-secondary: #525252;
+  --text-tertiary: #A3A3A3;
+  --text-inverse: #FFFFFF;
+  --text-link: #FF6B00;
+
+  /* ── Border Colors ── */
+  --border-default: #E5E5E5;
+  --border-light: #F0F0F0;
+  --border-dark: #D4D4D4;
+
+  /* ── Typography ── */
+  --font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --font-family-display: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  --font-size-xs: 0.625rem;    /* 10px */
+  --font-size-sm: 0.75rem;     /* 12px */
+  --font-size-base: 0.875rem;  /* 14px */
+  --font-size-md: 1rem;        /* 16px */
+  --font-size-lg: 1.125rem;    /* 18px */
+  --font-size-xl: 1.25rem;     /* 20px */
+  --font-size-2xl: 1.5rem;     /* 24px */
+  --font-size-3xl: 1.875rem;   /* 30px */
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* ── Spacing ── */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-base: 16px;
+  --spacing-lg: 20px;
+  --spacing-xl: 24px;
+  --spacing-2xl: 32px;
+
+  /* ── Radius ── */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* ── Shadows ── */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* ── Typography Classes ── */
+.text-display {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+}
+
+.text-heading {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+}
+
+.text-body {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+}
+
+.text-caption {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height-normal);
+  color: var(--text-tertiary);
+}
+
+.text-price {
+  font-family: var(--font-family-display);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+}
+
+.text-badge {
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-xs);
+}
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-primary: var(--color-primary);
+  }
+  @layer base {
+    body { background: var(--color-background); color: var(--color-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased" style="background: var(--surface-secondary); color: var(--text-primary); max-width: 375px; margin: 0 auto; position: relative;">
+
+    <main class="pb-16">
+
+        <!-- ── Search Bar ── -->
+        <section class="sticky top-0 z-30 px-3 pt-2 pb-2" style="background: var(--color-primary);">
+            <div class="flex items-center gap-2">
+                <div class="flex-1 flex items-center rounded-full px-3 py-2" style="background: var(--surface-primary);">
+                    <i data-lucide="search" class="w-4 h-4 mr-2" style="color: var(--text-tertiary); flex-shrink:0;"></i>
+                    <input
+                        data-dom-id="search-bar"
+                        type="text"
+                        placeholder="搜索商品、品牌"
+                        class="flex-1 bg-transparent outline-none text-sm"
+                        style="font-family: var(--font-family-base); color: var(--text-primary); font-size: var(--font-size-base);"
+                    />
+                </div>
+                <button class="flex items-center justify-center rounded-full w-9 h-9 flex-shrink-0" style="background: var(--color-primary-dark);">
+                    <i data-lucide="search" class="w-4 h-4" style="color: var(--text-inverse);"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- ── Banner Carousel ── -->
+        <section class="px-3 pt-3">
+            <div class="relative rounded-xl overflow-hidden" style="border-radius: var(--radius-lg);">
+                <img src="../assets/promo-banner.jpg" alt="限时特惠" class="w-full object-cover" style="height: 160px; display: block;" />
+                <div class="absolute top-2 left-2 px-2 py-0.5 rounded text-xs font-semibold" style="background: var(--color-primary); color: var(--text-inverse); border-radius: var(--radius-md);">
+                    限时特惠
+                </div>
+                <div class="absolute bottom-0 left-0 right-0 px-3 py-2" style="background: linear-gradient(transparent, rgba(0,0,0,0.5));">
+                    <p class="text-white text-sm font-semibold" style="font-family: var(--font-family-display);">夏日狂欢 全场低至3折</p>
+                </div>
+                <!-- Carousel dots -->
+                <div class="absolute bottom-2 right-3 flex gap-1">
+                    <span class="inline-block w-4 h-1.5 rounded-full" style="background: var(--color-primary);"></span>
+                    <span class="inline-block w-1.5 h-1.5 rounded-full" style="background: rgba(255,255,255,0.5);"></span>
+                    <span class="inline-block w-1.5 h-1.5 rounded-full" style="background: rgba(255,255,255,0.5);"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Category Grid ── -->
+        <section class="px-3 pt-4">
+            <div class="grid grid-cols-4 gap-y-4 gap-x-2">
+                <!-- 数码 -->
+                <div class="flex flex-col items-center gap-1">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-full text-xl" style="background: var(--color-primary-50);">
+                        <i data-lucide="smartphone" class="w-5 h-5" style="color: var(--color-primary);"></i>
+                    </div>
+                    <span class="text-xs" style="color: var(--text-secondary); font-family: var(--font-family-base);">数码</span>
+                </div>
+                <!-- 服饰 -->
+                <div class="flex flex-col items-center gap-1">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-full text-xl" style="background: #FEE2E2;">
+                        <i data-lucide="shirt" class="w-5 h-5" style="color: #EF4444;"></i>
+                    </div>
+                    <span class="text-xs" style="color: var(--text-secondary); font-family: var(--font-family-base);">服饰</span>
+                </div>
+                <!-- 美妆 -->
+                <div class="flex flex-col items-center gap-1">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-full text-xl" style="background: #FCE7F3;">
+                        <i data-lucide="sparkles" class="w-5 h-5" style="color: #EC4899;"></i>
+                    </div>
+                    <span class="text-xs" style="color: var(--text-secondary); font-family: var(--font-family-base);">美妆</span>
+                </div>
+                <!-- 食品 -->
+                <div class="flex flex-col items-center gap-1">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-full text-xl" style="background: #FEF3C7;">
+                        <i data-lucide="cherry" class="w-5 h-5" style="color: #F59E0B;"></i>
+                    </div>
+                    <span class="text-xs" style="color: var(--text-secondary); font-family: var(--font-family-base);">食品</span>
+                </div>
+                <!-- 家居 -->
+                <div class="flex flex-col items-center gap-1">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-full text-xl" style="background: #DBEAFE;">
+                        <i data-lucide="lamp" class="w-5 h-5" style="color: #3B82F6;"></i>
+                    </div>
+                    <span class="text-xs" style="color: var(--text-secondary); font-family: var(--font-family-base);">家居</span>
+                </div>
+                <!-- 运动 -->
+                <div class="flex flex-col items-center gap-1">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-full text-xl" style="background: #D1FAE5;">
+                        <i data-lucide="dumbbell" class="w-5 h-5" style="color: #22C55E;"></i>
+                    </div>
+                    <span class="text-xs" style="color: var(--text-secondary); font-family: var(--font-family-base);">运动</span>
+                </div>
+                <!-- 图书 -->
+                <div class="flex flex-col items-center gap-1">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-full text-xl" style="background: #EDE9FE;">
+                        <i data-lucide="book-open" class="w-5 h-5" style="color: #8B5CF6;"></i>
+                    </div>
+                    <span class="text-xs" style="color: var(--text-secondary); font-family: var(--font-family-base);">图书</span>
+                </div>
+                <!-- 更多 -->
+                <div class="flex flex-col items-center gap-1">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-full text-xl" style="background: var(--color-neutral-100);">
+                        <i data-lucide="grid-3x3" class="w-5 h-5" style="color: var(--text-tertiary);"></i>
+                    </div>
+                    <span class="text-xs" style="color: var(--text-secondary); font-family: var(--font-family-base);">更多</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Flash Sale Section ── -->
+        <section class="mt-4">
+            <div class="px-3 flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2">
+                    <h2 class="text-base font-bold" style="font-family: var(--font-family-display); color: var(--color-primary); font-size: var(--font-size-lg);">
+                        <i data-lucide="zap" class="w-4 h-4 inline-block mr-0.5" style="color: var(--color-primary);"></i>
+                        限时抢购
+                    </h2>
+                    <div class="flex items-center gap-1 px-2 py-0.5 rounded" style="background: var(--color-primary-50);">
+                        <span class="inline-flex items-center justify-center w-5 h-5 rounded text-xs font-bold" style="background: var(--color-primary); color: var(--text-inverse);">02</span>
+                        <span class="text-xs font-bold" style="color: var(--color-primary);">:</span>
+                        <span class="inline-flex items-center justify-center w-5 h-5 rounded text-xs font-bold" style="background: var(--color-primary); color: var(--text-inverse);">38</span>
+                        <span class="text-xs font-bold" style="color: var(--color-primary);">:</span>
+                        <span class="inline-flex items-center justify-center w-5 h-5 rounded text-xs font-bold" style="background: var(--color-primary); color: var(--text-inverse);">56</span>
+                    </div>
+                </div>
+                <a href="#" class="text-xs flex items-center gap-0.5" style="color: var(--text-tertiary);">
+                    更多
+                    <i data-lucide="chevron-right" class="w-3 h-3"></i>
+                </a>
+            </div>
+            <div class="flex gap-2.5 overflow-x-auto no-scrollbar px-3">
+                <!-- Flash sale card 1 -->
+                <div class="flex-shrink-0 w-32 rounded-xl overflow-hidden" style="background: var(--surface-primary); box-shadow: var(--shadow-md); border-radius: var(--radius-lg);">
+                    <img src="../assets/product-headphones.jpg" alt="耳机" class="w-full object-cover" style="height: 120px; display: block;" />
+                    <div class="p-2">
+                        <p class="text-xs truncate mb-1" style="color: var(--text-primary);">无线降噪耳机</p>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-price text-sm" style="color: var(--color-primary); font-size: var(--font-size-base);">¥199</span>
+                            <span class="text-xs line-through" style="color: var(--text-tertiary); font-size: var(--font-size-xs);">¥599</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Flash sale card 2 -->
+                <div class="flex-shrink-0 w-32 rounded-xl overflow-hidden" style="background: var(--surface-primary); box-shadow: var(--shadow-md); border-radius: var(--radius-lg);">
+                    <img src="../assets/product-watch.jpg" alt="手表" class="w-full object-cover" style="height: 120px; display: block;" />
+                    <div class="p-2">
+                        <p class="text-xs truncate mb-1" style="color: var(--text-primary);">智能运动手表</p>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-price text-sm" style="color: var(--color-primary); font-size: var(--font-size-base);">¥299</span>
+                            <span class="text-xs line-through" style="color: var(--text-tertiary); font-size: var(--font-size-xs);">¥899</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Flash sale card 3 -->
+                <div class="flex-shrink-0 w-32 rounded-xl overflow-hidden" style="background: var(--surface-primary); box-shadow: var(--shadow-md); border-radius: var(--radius-lg);">
+                    <img src="../assets/product-speaker.jpg" alt="音箱" class="w-full object-cover" style="height: 120px; display: block;" />
+                    <div class="p-2">
+                        <p class="text-xs truncate mb-1" style="color: var(--text-primary);">便携蓝牙音箱</p>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-price text-sm" style="color: var(--color-primary); font-size: var(--font-size-base);">¥149</span>
+                            <span class="text-xs line-through" style="color: var(--text-tertiary); font-size: var(--font-size-xs);">¥399</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── Recommended Products ── -->
+        <section class="mt-4 px-3">
+            <div class="flex items-center justify-between mb-2">
+                <h2 class="text-base font-bold" style="font-family: var(--font-family-display); color: var(--text-primary); font-size: var(--font-size-lg);">
+                    为你推荐
+                </h2>
+                <a href="#" class="text-xs flex items-center gap-0.5" style="color: var(--text-tertiary);">
+                    换一批
+                    <i data-lucide="refresh-cw" class="w-3 h-3"></i>
+                </a>
+            </div>
+            <div class="grid grid-cols-2 gap-2.5">
+                <!-- Product card 1 -->
+                <div data-dom-id="product-card-1" class="rounded-xl overflow-hidden" style="background: var(--surface-primary); box-shadow: var(--shadow-sm); border-radius: var(--radius-lg);">
+                    <div class="relative">
+                        <img src="../assets/product-sneakers.jpg" alt="运动鞋" class="w-full object-cover" style="height: 170px; display: block;" />
+                        <span class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded text-xs font-medium" style="background: var(--color-primary); color: var(--text-inverse); font-size: var(--font-size-xs); border-radius: var(--radius-sm);">爆款</span>
+                    </div>
+                    <div class="p-2.5">
+                        <p class="text-sm leading-snug mb-1 line-clamp-2" style="color: var(--text-primary); font-family: var(--font-family-base); font-size: var(--font-size-sm);">2024新款轻便透气跑步鞋男款</p>
+                        <div class="flex items-baseline gap-1.5 mb-1">
+                            <span class="font-bold" style="color: var(--color-primary); font-family: var(--font-family-display); font-size: var(--font-size-md);">¥268</span>
+                            <span class="line-through" style="color: var(--text-tertiary); font-size: var(--font-size-xs);">¥499</span>
+                        </div>
+                        <p class="text-caption" style="font-size: var(--font-size-xs);">已售3.2万</p>
+                    </div>
+                </div>
+                <!-- Product card 2 -->
+                <div data-dom-id="product-card-2" class="rounded-xl overflow-hidden" style="background: var(--surface-primary); box-shadow: var(--shadow-sm); border-radius: var(--radius-lg);">
+                    <div class="relative">
+                        <img src="../assets/product-speaker.jpg" alt="音箱" class="w-full object-cover" style="height: 170px; display: block;" />
+                        <span class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded text-xs font-medium" style="background: var(--state-error); color: var(--text-inverse); font-size: var(--font-size-xs); border-radius: var(--radius-sm);">-68%</span>
+                    </div>
+                    <div class="p-2.5">
+                        <p class="text-sm leading-snug mb-1 line-clamp-2" style="color: var(--text-primary); font-family: var(--font-family-base); font-size: var(--font-size-sm);">高保真桌面蓝牙音箱低音炮</p>
+                        <div class="flex items-baseline gap-1.5 mb-1">
+                            <span class="font-bold" style="color: var(--color-primary); font-family: var(--font-family-display); font-size: var(--font-size-md);">¥128</span>
+                            <span class="line-through" style="color: var(--text-tertiary); font-size: var(--font-size-xs);">¥399</span>
+                        </div>
+                        <p class="text-caption" style="font-size: var(--font-size-xs);">已售1.8万</p>
+                    </div>
+                </div>
+                <!-- Product card 3 -->
+                <div class="rounded-xl overflow-hidden" style="background: var(--surface-primary); box-shadow: var(--shadow-sm); border-radius: var(--radius-lg);">
+                    <div class="relative">
+                        <img src="../assets/product-bag.jpg" alt="双肩包" class="w-full object-cover" style="height: 170px; display: block;" />
+                        <span class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded text-xs font-medium" style="background: var(--color-primary); color: var(--text-inverse); font-size: var(--font-size-xs); border-radius: var(--radius-sm);">新品</span>
+                    </div>
+                    <div class="p-2.5">
+                        <p class="text-sm leading-snug mb-1 line-clamp-2" style="color: var(--text-primary); font-family: var(--font-family-base); font-size: var(--font-size-sm);">大容量防水双肩背包商务通勤</p>
+                        <div class="flex items-baseline gap-1.5 mb-1">
+                            <span class="font-bold" style="color: var(--color-primary); font-family: var(--font-family-display); font-size: var(--font-size-md);">¥89</span>
+                            <span class="line-through" style="color: var(--text-tertiary); font-size: var(--font-size-xs);">¥259</span>
+                        </div>
+                        <p class="text-caption" style="font-size: var(--font-size-xs);">已售5.6万</p>
+                    </div>
+                </div>
+                <!-- Product card 4 -->
+                <div class="rounded-xl overflow-hidden" style="background: var(--surface-primary); box-shadow: var(--shadow-sm); border-radius: var(--radius-lg);">
+                    <div class="relative">
+                        <img src="../assets/product-headphones.jpg" alt="耳机" class="w-full object-cover" style="height: 170px; display: block;" />
+                        <span class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded text-xs font-medium" style="background: var(--state-error); color: var(--text-inverse); font-size: var(--font-size-xs); border-radius: var(--radius-sm);">-52%</span>
+                    </div>
+                    <div class="p-2.5">
+                        <p class="text-sm leading-snug mb-1 line-clamp-2" style="color: var(--text-primary); font-family: var(--font-family-base); font-size: var(--font-size-sm);">头戴式无线降噪音乐耳机</p>
+                        <div class="flex items-baseline gap-1.5 mb-1">
+                            <span class="font-bold" style="color: var(--color-primary); font-family: var(--font-family-display); font-size: var(--font-size-md);">¥199</span>
+                            <span class="line-through" style="color: var(--text-tertiary); font-size: var(--font-size-xs);">¥419</span>
+                        </div>
+                        <p class="text-caption" style="font-size: var(--font-size-xs);">已售9800</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Spacer for bottom nav -->
+        <div style="height: 8px;"></div>
+
+    </main>
+
+    <!-- ── Bottom Tab Bar ── -->
+    <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 flex items-center justify-around z-50 border-t" style="width: 375px; max-width: 100vw; height: 56px; background: var(--surface-primary); border-color: var(--border-default); box-shadow: 0 -1px 4px rgba(0,0,0,0.06);">
+        <!-- 首页 (active) -->
+        <a href="#" class="flex flex-col items-center gap-0.5 py-1" style="color: var(--color-primary);">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            <span class="text-xs font-semibold" style="font-size: 10px;">首页</span>
+        </a>
+        <!-- 分类 -->
+        <a href="#" data-dom-id="nav-category" class="flex flex-col items-center gap-0.5 py-1" style="color: var(--text-tertiary);">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+            <span class="text-xs" style="font-size: 10px;">分类</span>
+        </a>
+        <!-- 购物车 -->
+        <a href="#" data-dom-id="nav-cart" class="flex flex-col items-center gap-0.5 py-1 relative" style="color: var(--text-tertiary);">
+            <span class="absolute -top-0.5 right-0 inline-flex items-center justify-center min-w-4 h-4 px-1 rounded-full text-xs font-bold" style="background: var(--color-primary); color: var(--text-inverse); font-size: 10px; line-height: 1;">3</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+            <span class="text-xs" style="font-size: 10px;">购物车</span>
+        </a>
+        <!-- 我的 -->
+        <a href="#" data-dom-id="nav-profile" class="flex flex-col items-center gap-0.5 py-1" style="color: var(--text-tertiary);">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+            <span class="text-xs" style="font-size: 10px;">我的</span>
+        </a>
+    </nav>
+    <script>lucide.createIcons();</script>
+<script>
+const ROUTES = {
+  'page-home': 'index.html',
+  'page-login': 'login.html',
+  'page-search': 'search.html',
+  'page-product': 'product.html',
+  'page-cart': 'cart.html',
+  'page-payment': 'payment.html',
+  'page-orders': 'orders.html'
+};
+const INTERACTIONS = {
+  'btn-login': 'page-home',
+  'btn-checkout': 'page-payment',
+  'btn-submit-order': 'page-orders',
+  'btn-add-cart': 'page-cart',
+  'btn-buy-now': 'page-payment',
+  'nav-home': 'page-home',
+  'nav-category': 'page-search',
+  'nav-cart': 'page-cart',
+  'nav-profile': 'page-orders',
+  'search-bar': 'page-search',
+  'search-back': 'page-home',
+  'product-back': 'page-home',
+  'product-card-1': 'page-product',
+  'product-card-2': 'page-product',
+  'payment-back': 'page-cart',
+  'orders-back': 'page-home',
+  'order-detail-1': 'page-product',
+  'cart-item-delete': null,
+  'btn-select-all': null,
+  'btn-favorite': null,
+  'link-register': 'page-home',
+  'address-edit': null,
+  'payment-method': null
+};
+document.addEventListener('click', function(e) {
+  var el = e.target.closest('[data-dom-id]');
+  if (!el) return;
+  var domId = el.getAttribute('data-dom-id');
+  var pageKey = INTERACTIONS[domId];
+  if (!pageKey) return;
+  e.preventDefault();
+  var target = ROUTES[pageKey];
+  if (target) window.location.href = target;
+});
+</script>
+</body>
+</html>
